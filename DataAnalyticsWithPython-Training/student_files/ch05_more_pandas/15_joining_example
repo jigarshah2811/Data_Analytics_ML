@@ -1,0 +1,28 @@
+import pandas as pd
+
+tempratures = pd.DataFrame(index=['Bangalore', 'Ahmedabad', 'Bhavnagar'],
+             columns=['high', 'low'],
+             data=[(78, 50), (82, 52), (83, 53)])
+
+print("Temprature: \n", tempratures, sep="\n" )
+
+
+
+humidity = pd.DataFrame(index=['Bangalore', 'Poona'],
+             columns=['humidity'],
+             data=[400, 300])
+
+print("humidity: \n", humidity, sep="\n" )
+
+# Join on Axis=1
+merged_temp_hum = pd.concat([tempratures, humidity], axis=1, sort=True)
+print("merged_temp_hum: \n", merged_temp_hum, sep="\n" )
+
+
+contacts = pd.read_csv("contacts.dat", sep=",", header=None,
+            names=['Name','Address','State','Zip','AreaCode','Phone','Email','Company','Position'],
+            converters={'State': lambda txt: txt.strip()}
+            )
+contacts_by_state = contacts.groupby(by='State')
+print(contacts_by_state.groups)
+print(contacts_by_state.size())
